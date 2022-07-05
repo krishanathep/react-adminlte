@@ -48,7 +48,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="card-body">
-                  Start creating your amazing application!
+                  <h3>Hello Home</h3>
                 </div>
                 <div className="card-footer">Footer</div>
               </div>
