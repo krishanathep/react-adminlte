@@ -1,7 +1,39 @@
-import React from "react";
+import React,{useState} from "react";
 import { Link } from "react-router-dom";
 
 export default function Signin() {
+
+  const [email,setEmail]=useState('')
+  const [password,setPassword]=useState('')
+
+  async function handleSubmit(e){
+    e.preventDefault();
+    
+    const data = { email, password }
+
+    const resuestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }
+
+    await fetch('http://127.0.0.1:8000/api/auth/login', resuestOptions)
+      .then((res)=>res.json())
+      .then((res)=>{
+        if('access_token' in res){
+          alert('Welcome to We Systems')
+          
+          localStorage.setItem('access_token', res['access_token'])
+          localStorage.setItem('user', JSON.stringify(res['user']))
+
+          window.location.href = "/"
+
+        }else{
+          alert('Username & Password Errors')
+        }
+      })
+  }
+
   return (
     <div>
       <div className="hold-transition login-page">
@@ -14,15 +46,15 @@ export default function Signin() {
           <div className="card">
             <div className="card-body login-card-body">
               <p className="login-box-msg">Sign in to start your session</p>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="input-group mb-3">
                   <input
                     type="email"
                     className="form-control"
                     placeholder="Email"
                     name="email"
-                    // value={email}
-                    // onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <div className="input-group-append">
                     <div className="input-group-text">
@@ -36,8 +68,8 @@ export default function Signin() {
                     className="form-control"
                     placeholder="Password"
                     name="password"
-                    // value={password}
-                    // onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <div className="input-group-append">
                     <div className="input-group-text">

@@ -2,6 +2,9 @@ import React from 'react'
 import { NavLink as Link } from 'react-router-dom'
 
 export default function Sidebar() {
+
+  const user = JSON.parse(localStorage.getItem("user"))
+
   return (
     <div>
          <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -27,7 +30,7 @@ export default function Sidebar() {
               </div>
               <div className="info">
                 <Link to="#" className="d-block">
-                  {/* {user.name} */}<p>Krishanathep.J</p>
+                  {user.name}
                 </Link>
               </div>
             </div>

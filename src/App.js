@@ -15,6 +15,13 @@ import Home from "./pages/Home";
 import Blank from "./pages/Blank";
 
 function App() {
+
+  const token = localStorage.getItem('access_token')
+
+  if(!token) {
+    return <SignIn/>
+  }
+
   return (
     <div className="wrapper">
       <Router>
